@@ -179,14 +179,15 @@
     }
 
     .info {
-      display: flex;
+      display: none;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 100%;
       gap: 0;
       padding: 1rem 2rem;
-      border-radius: .5rem;
+      border-radius: 0 0 .5rem .5rem;
+      margin-top: -1.5rem;
       background-color: var(--very_dark_desaturated_blue_dark);
       color: var(--dark_grayish_blue_dark);
     }
@@ -273,6 +274,7 @@
     let tasksContainer = document.querySelector(".tasks_container")
     let taskAloneContainer = document.querySelectorAll('.task')
     let iconCross = document.querySelectorAll('.cross')
+    let info = document.querySelector('.info')
     let itensNumbers = document.getElementById('itens_numbers')
     let clearComplete = document.getElementById('clear_complete')
     let all = document.getElementById('all')
@@ -361,10 +363,53 @@
       tasksContainer.appendChild(task)
       newTask.value = ''
 
+      if (itensNumbers.innerHTML === '0 itens left') {
+        info.style.display = 'none'
+      } else {
+        info.style.display = 'flex'
+      }
+
       taskCounter = taskCounter + 1
       itensNumbers.innerHTML = taskCounter + ' itens left'
 
-      
+      all.addEventListener('click', () => {
+        if (active.style.color != 'var(--bright_blue)' || completed.style.color != 'var(--bright_blue)') {
+          all.style.color = 'var(--bright_blue)'
+          active.style.color = 'var(--dark_grayish_blue_dark)'
+          completed.style.color = 'var(--dark_grayish_blue_dark)'
+          task.style.display = 'flex'
+        }
+      })
+
+      active.addEventListener('click', () => {
+        if (all.style.color != 'var(--bright_blue)' || completed.style.color != 'var(--bright_blue)') {
+          all.style.color = 'var(--dark_grayish_blue_dark)'
+          active.style.color = 'var(--bright_blue)'
+          completed.style.color = 'var(--dark_grayish_blue_dark)'
+
+          if (taskText.style.textDecoration != 'line-through') {
+            task.style.display = 'flex'
+          }
+          if (taskText.style.textDecoration == 'line-through') {
+            task.style.display = 'none'
+          }
+        }
+      })
+
+      completed.addEventListener('click', () => {
+        if (all.style.color != 'var(--bright_blue)' || active.style.color != 'var(--bright_blue)') {
+          all.style.color = 'var(--dark_grayish_blue_dark)'
+          active.style.color = 'var(--dark_grayish_blue_dark)'
+          completed.style.color = 'var(--bright_blue)'
+
+          if (taskText.style.textDecoration == 'line-through') {
+            task.style.display = 'flex'
+          }
+          if (taskText.style.textDecoration != 'line-through') {
+            task.style.display = 'none'
+          }
+        }
+      })
 
       clearComplete.addEventListener('click', () => {
         if (taskText.style.textDecoration == 'line-through') {
