@@ -65,9 +65,9 @@
       display: flex;
       flex-direction: column;
       margin-top: 5rem;
-      /* MODIFICAR */
-      width: 35rem;
-      gap: 5rem;
+      max-width: 35rem;
+      width: 100%;
+      gap: 1.5rem;
     }
 
     header {
@@ -103,7 +103,8 @@
       background-color: var(--very_dark_desaturated_blue_dark);
     }
 
-    .checkbox {
+    .checkbox,
+    .checkbox_input {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -134,7 +135,6 @@
       width: .7rem;
     }
 
-
     #new_task {
       min-height: 4rem;
       width: 100%;
@@ -144,21 +144,76 @@
       outline: 0;
     }
 
+    #new_task::placeholder {
+      color: var(--dark_grayish_blue_dark);
+    }
+
     .task {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       align-items: center;
       min-height: 4rem;
       width: 100%;
-      gap: 1.5rem;
       padding: 0 2rem;
       background-color: var(--very_dark_desaturated_blue_dark);
       color: var(--very_light_gray_light);
+      border-bottom: 1px solid var(--very_darkness_grayish_blue_dark);
     }
 
-    .hide {
+    .check_text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .cross {
       display: none;
       opacity: 0;
+    }
+
+    .task:hover .cross {
+      display: flex;
+      opacity: 1;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 0;
+      padding: 1rem 2rem;
+      border-radius: .5rem;
+      background-color: var(--very_dark_desaturated_blue_dark);
+      color: var(--dark_grayish_blue_dark);
+    }
+
+    #itens_numbers {
+      font-size: 14px;
+    }
+
+    #clear_complete {
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .types {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .types p {
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .types p:nth-child(1) {
+      color: var(--bright_blue);
     }
 
     .attribution {
@@ -180,32 +235,28 @@
     </header>
 
     <div class="input_container">
-      <label class="check" for="checkbox_new_task"><img for="checkbox_new_task" src="images/icon-check.svg"
-          alt="icon-check.svg"></label>
-      <input type="checkbox" id="checkbox_new_task" class="checkbox">
+      <input type="checkbox" id="checkbox_new_task" class="checkbox_input">
       <input type="text" id="new_task" placeholder="Create a new todo..." autocomplete="off">
     </div>
 
-    <div class="tasks_container hide">
-      <div class="task">
-        <label class="check" for="checkbox_new_task"><img for="checkbox_new_task" src="images/icon-check.svg"
-            alt="icon-check.svg"></label>
-        <input type="checkbox" id="checkbox_new_task" class="checkbox">
-        <p id="text_task"></p>
+    <div class="tasks_container"></div>
+
+    <div class="info">
+      <div>
+        <p id="itens_numbers">0 itens left</p>
+      </div>
+
+      <div class="types">
+        <p id="all">All</p>
+        <p id="active">Active</p>
+        <p id="completed">Completed</p>
+      </div>
+
+      <div>
+        <p id="clear_complete">Clear Completed</p>
       </div>
     </div>
   </main>
-  <!-- Todo
-
-   <Add dynamic number> items left
-
-  All
-  Active
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list -->
 
   <!-- <footer class=" attribution">
     <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.</p>
@@ -213,31 +264,116 @@
   </footer> -->
 
   <script>
+    //variables
     let iconTheme = document.getElementById('icon_theme')
     let inputContainer = document.querySelector('.input_container')
     let newTask = document.getElementById('new_task')
-    let checkbox = document.querySelector('.checkbox')
-    let check = document.querySelector('.check')
+    let checkbox = document.querySelectorAll('.checkbox')
     let textTask = document.getElementById("text_task")
     let tasksContainer = document.querySelector(".tasks_container")
+    let taskAloneContainer = document.querySelectorAll('.task')
+    let iconCross = document.querySelectorAll('.cross')
+    let itensNumbers = document.getElementById('itens_numbers')
+    let clearComplete = document.getElementById('clear_complete')
+    let all = document.getElementById('all')
+    let active = document.getElementById('active')
+    let completed = document.getElementById('completed')
+    let taskCounter = 0
 
+    //task submission
     newTask.addEventListener("keypress", function (e) {
       if (e.key === 'Enter') {
-        createTask()
+        let inputValue = newTask.value
+
+        if (newTask.value != "") {
+          saveTask(inputValue)
+        }
       }
     });
 
-    checkbox.addEventListener('click', () => {
-      if (checkbox.checked) {
-        check.style.display = 'flex'
-        check.style.opacity = 1
-        createTask()
-      } else {
-        check.style.display = 'none'
-        check.style.opacity = 0
-      }
-    })
+    //task creation
+    const saveTask = (text) => {
+      const task = document.createElement('div')
+      task.classList.add('task')
+      task.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
+      task.style.color = 'var(--very_light_gray_light)'
 
+      iconTheme.addEventListener('click', () => {
+        if (iconTheme.getAttribute('src') == 'images/icon-sun.svg') {
+          task.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
+          task.style.color = 'var(--very_light_gray_light)'
+          task.style.borderBottom = '1px solid var(--very_darkness_grayish_blue_dark)'
+        } else {
+          task.style.backgroundColor = 'var(--very_light_gray_light)'
+          task.style.color = 'var(--very_dark_grayish_blue_light)'
+          task.style.borderBottom = '1px solid var(--light_grayish_blue_light)'
+        }
+      })
+
+      const checkText = document.createElement('div')
+      checkText.classList.add('check_text')
+      task.appendChild(checkText)
+
+      const checkTask = document.createElement('input')
+      checkTask.type = 'checkbox'
+      checkTask.id = 'checkbox_new_task'
+      checkTask.className = 'checkbox'
+      checkText.appendChild(checkTask)
+
+      const check = document.createElement('img')
+      check.setAttribute('src', 'images/icon-check.svg')
+      check.style.display = 'none'
+      check.style.position = 'absolute'
+      check.style.marginLeft = '0.40rem'
+
+      checkTask.addEventListener('click', () => {
+        if (check.style.display == 'none') {
+          check.style.display = 'flex'
+          taskText.style.textDecoration = 'line-through'
+          taskText.style.color = 'var(--dark_grayish_blue_dark)'
+          taskCounter = taskCounter - 1
+          itensNumbers.innerHTML = taskCounter + ' itens left'
+        } else {
+          check.style.display = 'none'
+          taskText.style.textDecoration = 'none'
+          taskText.style.color = 'var(--very_light_gray_light)'
+        }
+      })
+
+      checkText.appendChild(check)
+
+      const taskText = document.createElement('p')
+      taskText.innerText = text
+      checkText.appendChild(taskText)
+
+      const crossImg = document.createElement('img')
+      crossImg.classList.add('cross')
+      crossImg.setAttribute('src', 'images/icon-cross.svg')
+      task.appendChild(crossImg)
+      crossImg.addEventListener('click', () => {
+        task.remove()
+        if (taskText.style.textDecoration != 'line-through') {
+          taskCounter = taskCounter - 1
+          itensNumbers.innerHTML = taskCounter + ' itens left'
+        }
+      })
+
+      tasksContainer.appendChild(task)
+      newTask.value = ''
+
+      taskCounter = taskCounter + 1
+      itensNumbers.innerHTML = taskCounter + ' itens left'
+
+      
+
+      clearComplete.addEventListener('click', () => {
+        if (taskText.style.textDecoration == 'line-through') {
+          task.remove()
+        }
+      })
+    }
+
+    //theme change
     iconTheme.addEventListener('click', () => {
       if (iconTheme.getAttribute('src') == 'images/icon-sun.svg') {
         iconTheme.setAttribute('src', 'images/icon-moon.svg')
@@ -245,23 +381,24 @@
         document.body.style.backgroundColor = 'var(--very_light_grayish_blue_light)'
         inputContainer.style.backgroundColor = 'var(--very_light_gray_light)'
         newTask.style.color = 'var(--very_dark_grayish_blue_light)'
-        checkbox.style.border = '1px solid var( --light_grayish_blue_light)'
+
+        for (let index = 0; index < taskAloneContainer.length; index++) {
+          taskAloneContainer[index].style.backgroundColor = 'var(--very_light_gray_light)'
+          taskAloneContainer[index].style.color = 'var(--very_dark_grayish_blue_light)'
+        }
       } else {
         iconTheme.setAttribute('src', 'images/icon-sun.svg')
         document.body.style.backgroundImage = 'url("images/bg-desktop-dark.jpg")'
         document.body.style.backgroundColor = 'var(--very_dark_blue_dark)'
         inputContainer.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
         newTask.style.color = 'var(--very_light_gray_light)'
-        checkbox.style.border = '1px solid var(--very_darkness_grayish_blue_dark)'
+
+        for (let index = 0; index < taskAloneContainer.length; index++) {
+          taskAloneContainer[index].style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
+          taskAloneContainer[index].style.color = 'var(--very_light_gray_light)'
+        }
       }
     })
-
-    function createTask() {
-      if (newTask.value != "") {
-        tasksContainer.classList.remove("hide")
-        textTask.innerHTML = newTask.value
-      }
-    }
   </script>
 </body>
 
