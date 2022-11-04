@@ -297,20 +297,16 @@
     const saveTask = (text) => {
       const task = document.createElement('div')
       task.classList.add('task')
-      task.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
-      task.style.color = 'var(--very_light_gray_light)'
 
-      iconTheme.addEventListener('click', () => {
-        if (iconTheme.getAttribute('src') == 'images/icon-sun.svg') {
-          task.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
-          task.style.color = 'var(--very_light_gray_light)'
-          task.style.borderBottom = '1px solid var(--very_darkness_grayish_blue_dark)'
-        } else {
-          task.style.backgroundColor = 'var(--very_light_gray_light)'
-          task.style.color = 'var(--very_dark_grayish_blue_light)'
-          task.style.borderBottom = '1px solid var(--light_grayish_blue_light)'
-        }
-      })
+      if (iconTheme.getAttribute('src') === 'images/icon-sun.svg') {
+        task.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
+        task.style.color = 'var(--very_light_gray_light)'
+        task.style.borderBottom = '1px solid var(--very_darkness_grayish_blue_dark)'
+      } else {
+        task.style.backgroundColor = 'var(--very_light_gray_light)'
+        task.style.color = 'var(--very_dark_grayish_blue_light)'
+        task.style.borderBottom = '1px solid var(--light_grayish_blue_light)'
+      }
 
       const checkText = document.createElement('div')
       checkText.classList.add('check_text')
@@ -333,12 +329,18 @@
           check.style.display = 'flex'
           taskText.style.textDecoration = 'line-through'
           taskText.style.color = 'var(--dark_grayish_blue_dark)'
+          taskText.style.fontSize = '16px'
           taskCounter = taskCounter - 1
+          console.log(taskCounter);
           itensNumbers.innerHTML = taskCounter + ' itens left'
         } else {
           check.style.display = 'none'
           taskText.style.textDecoration = 'none'
           taskText.style.color = 'var(--very_light_gray_light)'
+          taskText.style.fontSize = '18px'
+          taskCounter = taskCounter + 1
+          console.log(taskCounter);
+          itensNumbers.innerHTML = taskCounter + ' itens left'
         }
       })
 
@@ -358,19 +360,28 @@
           taskCounter = taskCounter - 1
           itensNumbers.innerHTML = taskCounter + ' itens left'
         }
+
+        if (taskCounter == 0) {
+          info.style.display = 'none'
+        } else {
+          info.style.display = 'flex'
+        }
       })
 
       tasksContainer.appendChild(task)
       newTask.value = ''
 
-      if (itensNumbers.innerHTML === '0 itens left') {
+      taskCounter = taskCounter + 1
+      itensNumbers.innerHTML = taskCounter + ' itens left'
+
+      taskText.style.transition = '.1s all ease'
+
+
+      if (tasksContainer.clientHeight <= '1px') {
         info.style.display = 'none'
       } else {
         info.style.display = 'flex'
       }
-
-      taskCounter = taskCounter + 1
-      itensNumbers.innerHTML = taskCounter + ' itens left'
 
       all.addEventListener('click', () => {
         if (active.style.color != 'var(--bright_blue)' || completed.style.color != 'var(--bright_blue)') {
@@ -414,6 +425,24 @@
       clearComplete.addEventListener('click', () => {
         if (taskText.style.textDecoration == 'line-through') {
           task.remove()
+
+          if (taskCounter == 0) {
+            info.style.display = 'none'
+          } else {
+            info.style.display = 'flex'
+          }
+        }
+      })
+
+      iconTheme.addEventListener('click', () => {
+        if (iconTheme.getAttribute('src') === 'images/icon-sun.svg') {
+          task.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
+          task.style.color = 'var(--very_light_gray_light)'
+          task.style.borderBottom = '1px solid var(--very_darkness_grayish_blue_dark)'
+        } else {
+          task.style.backgroundColor = 'var(--very_light_gray_light)'
+          task.style.color = 'var(--very_dark_grayish_blue_light)'
+          task.style.borderBottom = '1px solid var(--light_grayish_blue_light)'
         }
       })
     }
@@ -426,6 +455,7 @@
         document.body.style.backgroundColor = 'var(--very_light_grayish_blue_light)'
         inputContainer.style.backgroundColor = 'var(--very_light_gray_light)'
         newTask.style.color = 'var(--very_dark_grayish_blue_light)'
+        info.style.backgroundColor = 'var(--very_light_gray_light)'
 
         for (let index = 0; index < taskAloneContainer.length; index++) {
           taskAloneContainer[index].style.backgroundColor = 'var(--very_light_gray_light)'
@@ -437,6 +467,7 @@
         document.body.style.backgroundColor = 'var(--very_dark_blue_dark)'
         inputContainer.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
         newTask.style.color = 'var(--very_light_gray_light)'
+        info.style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
 
         for (let index = 0; index < taskAloneContainer.length; index++) {
           taskAloneContainer[index].style.backgroundColor = 'var(--very_dark_desaturated_blue_dark)'
