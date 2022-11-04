@@ -12,8 +12,8 @@
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
   - [Links](#links)
+  - [Screenshot](#screenshot)
 - [My process](#my-process)
   - [Built with](#built-with)
 
@@ -33,6 +33,11 @@ Users should be able to:
 - Toggle light and dark mode
 - **Bonus**: Drag and drop to reorder items on the list
 
+### Links
+
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: https://todo-app-rafael.netlify.app
+
 ### Screenshot
 
   - Desktop
@@ -42,11 +47,6 @@ Users should be able to:
   - Mobile
   
     ![](images/mobile.png)
-
-### Links
-
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: https://todo-app-rafael.netlify.app
 
 ## My process
 
