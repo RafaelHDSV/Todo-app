@@ -62,4 +62,4 @@ Users should be able to:
 - CSS Grid
 - Javascript properties
 
-[⬆ Back to the top](#frontend-mentor-todo-app-solution)<br>
+[⬆ Back to the top](#frontend-mentor---todo-app-solution)<br>
