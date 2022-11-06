@@ -48,8 +48,8 @@ Users should be able to:
   - Mobile
     
     <div style="display: flex">
-      <img src="images/mobile.png" width="400rem">
-      <img src="images/mobile_2.png" width="400rem">
+      <img src="images/mobile.png" width="350rem">
+      <img src="images/mobile_2.png" width="350rem">
     </div>
 
 ## My process
@@ -62,4 +62,4 @@ Users should be able to:
 - CSS Grid
 - Javascript properties
 
-[⬆ Back to the top](#frontend mentor-todo app solution)<br>
+[⬆ Back to the top](#frontend-mentor-todo-app-solution)<br>
