@@ -43,10 +43,14 @@ Users should be able to:
   - Desktop
   
     ![](images/desktop.png)
+    ![](images/desktop_2.png)
     
   - Mobile
-  
-    ![](images/mobile.png)
+    
+    <div display="inline-block">
+      <img src="images/mobile.png" width="50%">
+      <img src="images/mobile_2.png" width="50%">
+    </div>
 
 ## My process
 
