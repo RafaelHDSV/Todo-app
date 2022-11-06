@@ -47,7 +47,7 @@ Users should be able to:
     
   - Mobile
     
-    <div display="inline-block">
+    <div style="display: inline-block">
       <img src="images/mobile.png" width="50%">
       <img src="images/mobile_2.png" width="50%">
     </div>
