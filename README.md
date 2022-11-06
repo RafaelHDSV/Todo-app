@@ -35,7 +35,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: https://www.frontendmentor.io/solutions/todo-app-html-css-javascript-ve0ryPc9AQ
 - Live Site URL: https://todo-app-rafael.netlify.app
 
 ### Screenshot
