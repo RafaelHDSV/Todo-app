@@ -47,9 +47,9 @@ Users should be able to:
     
   - Mobile
     
-    <div style="display: inline-block">
-      <img src="images/mobile.png" width="50%">
-      <img src="images/mobile_2.png" width="50%">
+    <div style="display: flex">
+      <img src="images/mobile.png" width="400rem">
+      <img src="images/mobile_2.png" width="400rem">
     </div>
 
 ## My process
@@ -61,3 +61,5 @@ Users should be able to:
 - Flexbox
 - CSS Grid
 - Javascript properties
+
+[⬆ Back to the top](#frontend mentor-todo app solution)<br>
