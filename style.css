@@ -255,6 +255,8 @@ header img {
 }
 
 footer {
+    flex-direction: column;
+    align-items: center;
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -287,4 +289,12 @@ footer a {
     .types {
         display: none;
     }
+}
+
+/* board22 visit-count */
+footer #va-visits {
+  font-size: inherit;
+  color: inherit;
+  opacity: inherit;
+  margin-top: 0.25rem;
 }
