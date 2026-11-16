@@ -255,13 +255,14 @@ header img {
 }
 
 footer {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    display: flex;
-    flex-direction: row;
     position: absolute;
     bottom: 0;
-    gap: 1rem;
+    left: 0;
+    right: 0;
+    gap: 0.15rem;
     color: var(--very_light_gray_light);
     text-align: center;
     padding: .5rem 0;
@@ -293,8 +294,8 @@ footer a {
 
 /* board22 visit-count */
 footer #va-visits {
-  font-size: inherit;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  font-size: 11px;
   color: inherit;
-  opacity: inherit;
-  margin-top: 0.25rem;
 }
